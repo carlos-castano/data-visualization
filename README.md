@@ -6,4 +6,4 @@ This repository collects small projects and experiments using different data vis
 
 ## Projects
 
-- **chartJS-plotly-tableau**: An interactive comparison of world value survey results using different visualization frameworks.
+-  [**world-values**](world-values): An interactive comparison of world value survey results using different visualization frameworks.
