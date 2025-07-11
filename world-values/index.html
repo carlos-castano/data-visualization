@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Values Distribution</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Charts take time to load, minimal animation -->
+    <div id="loader"> <span>Loading...</span> </div>
+
+    <!-- GitHub svg from: https://www.svgrepo.com/svg/512317/github-142 -->
+    <div class="github-link">
+        <a href="https://github.com/carlos-castano" target="_blank">
+            <svg viewBox="-2 -2 24.00 24.00" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="Dribbble-Light-Preview" transform="translate(-140.000000, -7559.000000)" fill="#ffffff">
+                            <g id="icons" transform="translate(56.000000, 160.000000)">
+                                <path d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399" id="github-[#142]"></path>
+                            </g>
+                        </g>
+            </svg>
+        </a>
+    </div>
+
+    <h1>How Values are Distributed Worldwide?</h1>
+    <!--Load intro & first Graph with plotly & donutChart-->
+    <div class="explanation-container">
+        <div class="explanation-content">
+            <div class="text-section">
+                <p>
+                    Thanks to surveys conducted by the World Values Survey organization <b>between 2016 and 2022</b> (using the most updated), we can ask ourselves how values are distributed in the world through 2 variables scaled on a range <b>-1, 1</b>.
+                </p>
+                <ul>
+                    <li>
+                        <strong>Traditional - Secular:</strong> low values in this index represent a high importance of religion, parent-child bonds, deference to authority and traditional family values, as well as the rejection of divorce, abortion, euthanasia, suicide and national perspective. While high values indicate the opposite preferences.
+                    </li>
+                    <li>
+                        <strong>Survival - Self-expression:</strong> low values in this index emphasize economic and physical security, with a relatively ethnocentric perspective and low levels of trust and tolerance. High values indicate a high priority for environmental protection, growing tolerance of foreigners, gays and lesbians, and gender equality, as well as increasing demands for participation in decision-making in economic and political life.
+                    </li>
+                </ul>
+                <p>All population data used are from 2022 regardless of when the survey was conducted.<br>For the sake of simplicity, the total population is considered to be those countries surveyed (5.24 billion people).</p>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Who and How Many are <strong style="color: #e74c3c;">Liberal</strong> or <strong style="color: #3498db;">Conservative</strong>? By Region</h2>
+
+    <div class="text-before-chart">
+        <p>To categorize each quadrant, the "Traditional-Secular" and "Survival-Self-expression" indexes were averaged. <br>Each part has been separated by the range of membership between -1, 1 every 0.5.</p>
+    </div>
+
+    <div class="chart-container">
+        <div class="iframe-container"><iframe src="liberal_conservative.html"></iframe></div>
+        <div id="custom-tooltip"></div>
+        <canvas id="donutChart"></canvas>
+    </div>
+    
+    <h2>What Values Prevail in each Country?</h2>
+    <!--Load from tableau public-->
+    <div class='tableauPlaceholder' id='viz1731007614917' style='position: relative; max-width: 80%;'>
+        <noscript><a href='#'><img alt='Dashboard 1' src='https://public.tableau.com/static/images/PE/PEC3_17310075331680/Dashboard1/1_rss.png' style='border: none' /></a></noscript>
+        <object class='tableauViz' style='display: none;'>
+            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+            <param name='embed_code_version' value='3' />
+            <param name='site_root' value='' />
+            <param name='name' value='PEC3_17310075331680/Dashboard1' />
+            <param name='tabs' value='no' />
+            <param name='toolbar' value='yes' />
+            <param name='static_image' value='https://public.tableau.com/static/images/PE/PEC3_17310075331680/Dashboard1/1.png' />
+            <param name='animate_transition' value='yes' />
+            <param name='display_static_image' value='yes' />
+            <param name='display_spinner' value='yes' />
+            <param name='display_overlay' value='yes' />
+            <param name='display_count' value='yes' />
+            <param name='language' value='en-En' />
+            <param name='filter' value='publish=yes' />
+        </object>
+    </div>
+
+    <!-- Sources -->
+    <div class="explanation-container">
+    <p style="font-size: 1.8em; font-weight: bold; margin-top: -5px; margin-bottom: -8px;">Data sources</p>
+    <div class="explanation-content">
+        <div class="text-section">
+        <p><strong>World Values Survey</strong>: 
+            <a href="https://www.worldvaluessurvey.org/wvs.jsp" target="_blank">
+            https://www.worldvaluessurvey.org/wvs.jsp
+            </a>
+        </p>
+        <li><em>Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen (eds.). 2022. World Values Survey: All Rounds - Country-Pooled Datafile. Madrid, Spain & Vienna, Austria: JD Systems Institute & WVSA Secretariat. Dataset Version 3.0.0.
+            <a href="doi:10.14281/18241.17" target="_blank">doi:10.14281/18241.17</a></em>
+        </li>
+
+        <p><strong>World Bank, population data</strong>: 
+            <a href="https://data.worldbank.org/indicator/SP.POP.TOTL" target="_blank">
+            https://data.worldbank.org/indicator/SP.POP.TOTL
+            </a>
+        </p>
+        <li><em>Data compiled from: United Nations Population Division, UN Statistical Division, Eurostat, and national statistical offices. 
+            Original sources include: 
+            <a href="https://population.un.org/wpp" target="_blank">UN World Population Prospects</a>, 
+            <a href="https://unstats.un.org" target="_blank">UN Statistics Division</a>, and 
+            <a href="https://ec.europa.eu/eurostat" target="_blank">Eurostat Demographic Statistics</a>. 
+            Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+        </em></li>
+        </div>
+    </div>
+    </div>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="js/donutChart.js"></script>
+<script src="js/tableauResize.js"></script>
+<script src="js/loader.js"></script>
+
+</html>

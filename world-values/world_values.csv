@@ -1,0 +1,89 @@
+Country,tradition_secular_axis,survival_selfexpression_axis,Year,population 2022,Region,Population Group,size
+Haiti,-0.47,-0.14,2016,11584996.0,Central & South America,<25M,5
+Greece,0.2,-0.27,2017,10426919.0,Europe,<25M,5
+Finland,0.52,0.75,2017,5556106.0,Europe,<25M,5
+Denmark,0.65,0.92,2017,5903037.0,Europe,<25M,5
+Switzerland,0.44,0.71,2017,8775760.0,Europe,<25M,5
+Sweden,0.7,1.0,2017,10486941.0,Europe,<25M,5
+Croatia,0.1,-0.13,2017,3855641.0,Europe,<5M,1
+Russia,0.27,-0.39,2017,144236933.0,East Europe & West Asia,<200M,40
+Spain,0.39,0.37,2017,47778340.0,Europe,<50M,10
+Slovenia,0.5,0.3,2017,2111986.0,Europe,<5M,1
+Iceland,0.34,0.92,2017,382003.0,Europe,<5M,1
+Bulgaria,0.44,-0.37,2017,6465097.0,Europe,<25M,5
+Bolivia,-0.69,-0.31,2017,12224110.0,Central & South America,<25M,5
+United States,0.13,0.36,2017,333271411.0,North America & Oceania,<500M,90
+Argentina,-0.2,-0.09,2017,46234830.0,Central & South America,<50M,10
+Poland,-0.21,0.06,2017,36821749.0,Europe,<50M,10
+Indonesia,-0.68,-0.48,2018,275501339.0,East Asia,<500M,90
+Romania,-0.19,-0.46,2018,19047009.0,Europe,<25M,5
+Iraq,-0.46,-0.66,2018,44496122.0,Middle East,<50M,10
+Puerto Rico,-0.88,0.08,2018,3220113.0,Central & South America,<5M,1
+Italy,0.25,0.13,2018,58940425.0,Europe,<100M,20
+Kazakhstan,-0.03,-0.42,2018,19634983.0,Central Asia,<25M,5
+Jordan,-0.89,-0.62,2018,11285869.0,Middle East,<25M,5
+South Korea,0.9,-0.34,2018,51672569.0,East Asia,<100M,20
+Thailand,0.19,-0.14,2018,71697030.0,East Asia,<100M,20
+Lebanon,-0.28,-0.57,2018,5489739.0,Middle East,<25M,5
+Peru,-0.58,-0.38,2018,34049588.0,Central & South America,<50M,10
+Pakistan,-0.78,-0.4,2018,235824862.0,Central Asia,<500M,90
+Norway,0.59,0.97,2018,5457127.0,Europe,<25M,5
+Malaysia,0.07,-0.31,2018,33938221.0,East Asia,<50M,10
+Nigeria,-0.77,-0.58,2018,218541212.0,Africa,<500M,90
+Mexico,-0.59,-0.08,2018,127504125.0,North America & Oceania,<200M,40
+Serbia,0.23,-0.38,2018,6664449.0,Europe,<25M,5
+Lithuania,0.55,-0.23,2018,2831639.0,Europe,<5M,1
+Albania,-0.4,-0.48,2018,2777689.0,Europe,<5M,1
+Hungary,0.39,-0.16,2018,9643048.0,Europe,<25M,5
+Belarus,0.22,-0.28,2018,9228071.0,Europe,<25M,5
+Egypt,-0.46,-1.0,2018,110990103.0,Middle East,<200M,40
+Chile,0.17,-0.21,2018,19603733.0,Central & South America,<25M,5
+China,0.38,-0.2,2018,1412175000.0,East Asia,>=500M,150
+Bangladesh,-0.85,-0.42,2018,171186372.0,East Asia,<200M,40
+Colombia,-0.89,-0.07,2018,51874024.0,Central & South America,<100M,20
+Brazil,-0.14,-0.2,2018,215313498.0,Central & South America,<500M,90
+Ecuador,-0.98,-0.16,2018,18001000.0,Central & South America,<25M,5
+Australia,0.37,0.68,2018,26014399.0,North America & Oceania,<50M,10
+Azerbaijan,-0.2,-0.48,2018,10141756.0,East Europe & West Asia,<25M,5
+Estonia,0.57,0.1,2018,1348840.0,Europe,<5M,1
+France,0.32,0.55,2018,67971311.0,Europe,<100M,20
+Georgia,-0.56,-0.47,2018,3712502.0,East Europe & West Asia,<5M,1
+Andorra,0.37,0.65,2018,79824.0,Europe,<5M,1
+Germany,0.57,0.64,2018,83797985.0,Europe,<100M,20
+Turkey,-0.23,-0.43,2018,84979913.0,Middle East,<100M,20
+Austria,0.41,0.56,2018,9041851.0,Europe,<25M,5
+Bosnia and Herzegovina,0.0,-0.42,2019,3233526.0,Europe,<5M,1
+Philippines,-0.8,-0.13,2019,115559009.0,East Asia,<200M,40
+Tunisia,-0.31,-0.7,2019,12356117.0,Africa,<25M,5
+Montenegro,-0.22,-0.17,2019,617213.0,Europe,<5M,1
+Cyprus,-0.2,-0.35,2019,1251488.0,Europe,<5M,1
+North Macedonia,0.09,-0.27,2019,1831712.0,Europe,<5M,1
+Japan,1.0,0.32,2019,125124989.0,East Asia,<200M,40
+Vietnam,-0.22,0.06,2020,98186856.0,East Asia,<100M,20
+Tajikistan,-0.77,-0.4,2020,9952787.0,Central Asia,<25M,5
+Ukraine,0.3,-0.35,2020,38000000.0,East Europe & West Asia,<50M,10
+Singapore,0.1,-0.21,2020,5637022.0,East Asia,<25M,5
+Zimbabwe,-0.3,-0.86,2020,16320537.0,Africa,<25M,5
+Kyrgyzstan,-0.78,-0.37,2020,6974900.0,Central Asia,<25M,5
+Nicaragua,-0.97,-0.3,2020,6948392.0,Central & South America,<25M,5
+New Zealand,0.36,0.9,2020,5117200.0,North America & Oceania,<25M,5
+Myanmar,-0.57,-0.52,2020,54179306.0,East Asia,<100M,20
+Canada,0.52,0.6,2020,38939056.0,North America & Oceania,<50M,10
+Mongolia,0.49,-0.11,2020,3398366.0,East Asia,<5M,1
+Ethiopia,-0.74,-0.53,2020,123379924.0,Africa,<200M,40
+Guatemala,-0.55,-0.16,2020,17357886.0,Central & South America,<25M,5
+Iran,-0.28,-0.51,2020,88550570.0,Middle East,<100M,20
+Portugal,-0.12,-0.04,2020,10409704.0,Europe,<25M,5
+Armenia,-0.74,-0.43,2021,2780469.0,East Europe & West Asia,<5M,1
+Kenya,-0.51,-0.27,2021,54027487.0,Africa,<100M,20
+Latvia,0.54,-0.18,2021,1879383.0,Europe,<5M,1
+Maldives,-0.77,-0.41,2021,523787.0,Central Asia,<5M,1
+Morocco,-0.15,-0.47,2021,37457971.0,Africa,<50M,10
+Venezuela,-0.59,-0.26,2021,28301696.0,Central & South America,<50M,10
+Libya,-1.0,-0.59,2022,6812341.0,Middle East,<25M,5
+Czechia,0.83,0.11,2022,10672118.0,Europe,<25M,5
+Netherlands,0.73,0.73,2022,17700982.0,Europe,<25M,5
+Great Britain,0.62,0.67,2022,67791000.0,Europe,<100M,20
+Slovakia,0.47,-0.12,2022,5431752.0,Europe,<25M,5
+Uruguay,-0.15,0.34,2022,3422794.0,Central & South America,<5M,1
+Ireland,0.11,0.46,2022,5127170.0,Europe,<25M,5
