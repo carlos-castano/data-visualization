@@ -6,4 +6,5 @@ This repository collects small projects and experiments using different data vis
 
 ## Projects
 
--  [**world-values**](world-values): An interactive comparison of world value survey results using different visualization frameworks.
+-  🌐 [**world-values**](world-values): An interactive comparison of world value survey results using different visualization frameworks.
+-  🏭 [**EU27-climate-change-policies**](EU27-climate-change-policies): Interactive charts exploring the rationale and fairness of environmental taxes across EU countries.
