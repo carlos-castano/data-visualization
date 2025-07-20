@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Roboto', sans-serif;
+            background-color: #202020;
+        }
+        #chart-container {
+            position: relative;
+            width: 900px;
+            height: 600px;
+            display:contents;
+        }
+        .tooltip {
+            position: absolute;
+            background-color: #dedede;
+            border-radius: 8px;
+            border-color: black;
+            padding: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-family: 'Roboto', sans-serif;
+            z-index: 1000;
+        }
+        .tooltip-header {
+            padding: 8px;
+            font-weight: bold;
+            color: aliceblue;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            background-color: black;
+        }
+        .tooltip-content {
+            padding: 8px;
+            background-color: #dedede;
+            border-radius: 8px;
+        }
+        .tooltip-row {
+            margin: 4px 0;
+        }
+        .tooltip-group {
+            border-top: 1px solid #ccc;
+        }
+        .tooltip-group:first-of-type {
+            border-top: none;
+        }
+        .button-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            cursor: pointer;
+            background-color: #454545;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            color: aliceblue;
+        }
+
+        button:hover {
+            background-color: #2af4f4a8;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .checkbox-container {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            max-height: 200px;
+            width: 125px;
+            overflow-y: auto;
+            background-color: rgb(45, 45, 45);
+            margin-top: 5px;
+            padding: 0px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .checkbox-container.show {
+            display: block;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 5px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        .checkbox-item label {
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+        }
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            position: absolute;
+            gap: 15px;
+            top: 35px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-symbol {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .consumption{
+            position: relative;
+            bottom: 37%;
+            left: 73%;
+            color: #6b6b6b;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="chart-container">
+        <div class="legend"></div>
+        <div class="consumption">🢁 +Consumption</div>
+        <div class="button-container">
+            <button id="worldButton">World</button>
+            <button id="euButton">EU 27</button>
+        </div>
+    </div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        const globalData = [
+            {'Country': 'World', 'Coal': 45564.9, 'Oil': 54564.0, 'Gas': 40101.7, 'Nuclear': 6824.2, 'Hydro': 11014.1, 'Wind': 6040.4, 'Solar': 4264.3, 'Other renewables': 2427.9, 'Total': 170801.4 },
+            {'Country': 'China', 'Coal': 25538.5, 'Oil': 9090.5, 'Gas': 4048.4, 'Nuclear': 1083.6, 'Hydro': 3184.7, 'Wind': 2301.2, 'Solar': 1517.4, 'Other renewables': 632.4, 'Total': 47396.7 },
+            {'Country': 'United States', 'Coal': 2276.9, 'Oil': 9960.7, 'Gas': 8864.7, 'Nuclear': 2034.4, 'Hydro': 613.9, 'Wind': 1115.8, 'Solar': 624.8, 'Other renewables': 202.7, 'Total': 25693.8 },
+            {'Country': 'EU 27', 'Coal': 1523.2, 'Oil': 5957.2, 'Gas': 3194.6, 'Nuclear': 1544.1, 'Hydro': 846.0, 'Wind': 1248.1, 'Solar': 642.1, 'Other renewables': 501.2, 'Total': 15456.4 },
+            {'Country': 'India', 'Coal': 6105.9, 'Oil': 2937.0, 'Gas': 626.1, 'Nuclear': 120.2, 'Hydro': 387.5, 'Wind': 213.3, 'Solar': 294.6, 'Other renewables': 119.0, 'Total': 10803.5 },
+            {'Country': 'Russia', 'Coal': 1065.0, 'Oil': 2003.2, 'Gas': 4533.7, 'Nuclear': 541.9, 'Hydro': 521.8, 'Wind': 12.3, 'Solar': 6.8, 'Other renewables': 2.4, 'Total': 8687.1 },
+        ];
+
+        const euData = [
+            {'Country': 'EU 27', 'Coal': 1523.2, 'Oil': 5957.2, 'Gas': 3194.6, 'Nuclear': 1544.1, 'Hydro': 846.0, 'Wind': 1248.1, 'Solar': 642.1, 'Other renewables': 501.2, 'Total': 15456.4 },
+            {'Country': 'Germany', 'Coal': 507.2, 'Oil': 1114.5, 'Gas': 756.6, 'Nuclear': 18.0, 'Hydro': 51.0, 'Wind': 369.1, 'Solar': 159.0, 'Other renewables': 157.8, 'Total': 3133.4 },
+            {'Country': 'France', 'Coal': 49.4, 'Oil': 767.9, 'Gas': 338.6, 'Nuclear': 843.0, 'Hydro': 144.2, 'Wind': 135.9, 'Solar': 57.8, 'Other renewables': 31.0, 'Total': 2367.8 },
+            {'Country': 'Italy', 'Coal': 60.2, 'Oil': 686.9, 'Gas': 586.0, 'Nuclear': 0.0, 'Hydro': 101.1, 'Wind': 61.1, 'Solar': 81.1, 'Other renewables': 60.8, 'Total': 1637.2 },
+            {'Country': 'Spain', 'Coal': 32.9, 'Oil': 713.4, 'Gas': 293.0, 'Nuclear': 141.6, 'Hydro': 66.2, 'Wind': 166.8, 'Solar': 121.7, 'Other renewables': 17.3, 'Total': 1552.9 },
+            {'Country': 'Poland', 'Coal': 418.3, 'Oil': 390.3, 'Gas': 195.8, 'Nuclear': 0.0, 'Hydro': 6.2, 'Wind': 62.7, 'Solar': 30.3, 'Other renewables': 26.3, 'Total': 1130.0 },
+            {'Country': 'Netherlands', 'Coal': 44.0, 'Oil': 473.1, 'Gas': 257.7, 'Nuclear': 9.9, 'Hydro': 0.2, 'Wind': 75.0, 'Solar': 55.0, 'Other renewables': 25.7, 'Total': 940.6 },
+            {'Country': 'Belgium', 'Coal': 27.4, 'Oil': 315.1, 'Gas': 137.1, 'Nuclear': 82.1, 'Hydro': 1.0, 'Wind': 40.7, 'Solar': 19.0, 'Other renewables': 11.1, 'Total': 633.5 },
+            {'Country': 'Sweden', 'Coal': 18.1, 'Oil': 129.5, 'Gas': 7.2, 'Nuclear': 120.7, 'Hydro': 171.5, 'Wind': 89.2, 'Solar': 8.0, 'Other renewables': 36.2, 'Total': 580.5 },
+            {'Country': 'Czechia', 'Coal': 130.8, 'Oil': 116.0, 'Gas': 67.0, 'Nuclear': 75.8, 'Hydro': 6.1, 'Wind': 1.8, 'Solar': 5.7, 'Other renewables': 16.5, 'Total': 419.7 },
+            {'Country': 'Austria', 'Coal': 26.7, 'Oil': 135.0, 'Gas': 68.8, 'Nuclear': 0.0, 'Hydro': 100.9, 'Wind': 20.9, 'Solar': 13.4, 'Other renewables': 14.6, 'Total': 380.4 },
+            {'Country': 'Romania', 'Coal': 31.7, 'Oil': 126.5, 'Gas': 90.9, 'Nuclear': 27.9, 'Hydro': 47.4, 'Wind': 19.8, 'Solar': 4.8, 'Other renewables': 0.9, 'Total': 349.9 },
+            {'Country': 'Finland', 'Coal': 24.6, 'Oil': 90.9, 'Gas': 11.9, 'Nuclear': 85.4, 'Hydro': 39.4, 'Wind': 39.1, 'Solar': 1.7, 'Other renewables': 35.1, 'Total': 328.0 },
+            {'Country': 'Greece', 'Coal': 13.2, 'Oil': 172.1, 'Gas': 53.8, 'Nuclear': 0.0, 'Hydro': 10.3, 'Wind': 28.6, 'Solar': 22.1, 'Other renewables': 2.2, 'Total': 302.3 },
+            {'Country': 'Portugal', 'Coal': 0.1, 'Oil': 123.6, 'Gas': 44.8, 'Nuclear': 0.0, 'Hydro': 31.4, 'Wind': 34.2, 'Solar': 14.2, 'Other renewables': 11.2, 'Total': 259.5 },
+            {'Country': 'Hungary', 'Coal': 10.1, 'Oil': 93.5, 'Gas': 81.8, 'Nuclear': 39.7, 'Hydro': 0.6, 'Wind': 1.7, 'Solar': 17.0, 'Other renewables': 4.8, 'Total': 249.2 },
+            {'Country': 'Bulgaria', 'Coal': 44.6, 'Oil': 59.2, 'Gas': 25.3, 'Nuclear': 40.3, 'Hydro': 8.1, 'Wind': 4.1, 'Solar': 8.9, 'Other renewables': 6.0, 'Total': 196.5 },
+            {'Country': 'Denmark', 'Coal': 8.1, 'Oil': 87.6, 'Gas': 16.3, 'Nuclear': 0.0, 'Hydro': 0.1, 'Wind': 50.4, 'Solar': 9.0, 'Other renewables': 21.3, 'Total': 192.8 },
+            {'Country': 'Slovakia', 'Coal': 26.7, 'Oil': 50.3, 'Gas': 42.0, 'Nuclear': 45.7, 'Hydro': 12.3, 'Wind': 0.0, 'Solar': 1.6, 'Other renewables': 6.1, 'Total': 184.6 },
+            {'Country': 'Ireland', 'Coal': 7.5, 'Oil': 84.7, 'Gas': 48.2, 'Nuclear': 0.0, 'Hydro': 2.4, 'Wind': 30.1, 'Solar': 1.1, 'Other renewables': 3.0, 'Total': 177.1 },
+            {'Country': 'Croatia', 'Coal': 3.9, 'Oil': 40.3, 'Gas': 25.0, 'Nuclear': 0.0, 'Hydro': 21.2, 'Wind': 6.1, 'Solar': 1.0, 'Other renewables': 3.4, 'Total': 100.9 },
+            {'Country': 'Slovenia', 'Coal': 8.0, 'Oil': 25.0, 'Gas': 7.7, 'Nuclear': 14.0, 'Hydro': 12.9, 'Wind': 0.0, 'Solar': 2.8, 'Other renewables': 1.0, 'Total': 71.4 },
+            {'Country': 'Lithuania', 'Coal': 1.3, 'Oil': 37.8, 'Gas': 15.7, 'Nuclear': 0.0, 'Hydro': 1.2, 'Wind': 6.5, 'Solar': 0.9, 'Other renewables': 1.5, 'Total': 64.9 },
+            {'Country': 'Estonia', 'Coal': 27.5, 'Oil': 15.7, 'Gas': 3.7, 'Nuclear': 0.0, 'Hydro': 0.1, 'Wind': 1.8, 'Solar': 1.9, 'Other renewables': 4.5, 'Total': 55.2 },
+            {'Country': 'Latvia', 'Coal': 0.1, 'Oil': 19.6, 'Gas': 7.7, 'Nuclear': 0.0, 'Hydro': 9.9, 'Wind': 0.7, 'Solar': 0.1, 'Other renewables': 2.0, 'Total': 40.1 },
+            {'Country': 'Luxembourg', 'Coal': 0.4, 'Oil': 27.0, 'Gas': 5.7, 'Nuclear': 0.0, 'Hydro': 0.2, 'Wind': 1.2, 'Solar': 0.8, 'Other renewables': 0.7, 'Total': 36.0 },
+            {'Country': 'Cyprus', 'Coal': 0.3, 'Oil': 28.7, 'Gas': 0.0, 'Nuclear': 0.0, 'Hydro': 0.0, 'Wind': 0.5, 'Solar': 2.1, 'Other renewables': 0.2, 'Total': 31.9 },
+        ];
+
+        const colors = {
+            "Coal": "rgba(186, 24, 245, 0.7)",
+            "Oil": "rgba(82, 80, 81, 0.7)",
+            "Gas": "rgba(9, 0, 41, 0.7)",
+            "Nuclear": "rgba(179, 181, 2, 0.7)",
+            "Hydro": "rgba(24, 161, 240, 0.7)",
+            "Wind": "rgba(24, 240, 34, 0.7)",
+            "Solar": "rgba(240, 121, 24, 0.7)",
+            "Other renewables": "rgba(24, 240, 236, 0.7)"
+        };
+
+        const highCarbon = ["Coal", "Oil", "Gas"];
+        const lowCarbon = ["Nuclear", "Hydro", "Wind", "Solar", "Other renewables"];
+
+        // Starting chart
+        const margin = {top: 60, right: 110, bottom: 60, left: 110};
+        const width = 1000 - margin.left - margin.right;
+        const height = 700 - margin.top - margin.bottom;
+
+        const svg = d3.select("#chart-container")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+        
+        const x = d3.scaleLinear().range([0, width]);
+        const y = d3.scaleBand().range([0, height]).padding(0.2); //padd bewtween bars
+
+        const tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        // function to create chart, removes everything to load a minimal animation
+        function createChart(data, referenceTotal) {
+            svg.selectAll("*").remove();
+
+            const stackedData = d3.stack()
+                .keys(Object.keys(colors))
+                (data);
+
+            x.domain([0, 100]);
+            y.domain(data.map(d => d.Country));
+
+            const defs = svg.append("defs");
+
+            highCarbon.forEach((key, i) => {
+                defs.append("pattern")
+                    .attr("id", `pattern-${key}`)
+                    .attr("patternUnits", "userSpaceOnUse")
+                    .attr("width", 4)
+                    .attr("height", 4)
+                    .append("path")
+                    .attr("d", "M-12,1 l2,-2 M0,4 l4,-4 M3,5,-2") // this pattern gives error but somehow i like it how its displayed
+                    .attr("stroke", d3.color(colors[key]).darker())
+                    .attr("stroke-width", 1);
+            });
+            // Next 2 paragraphs originaly planed to to set first borders and then fill the bars with animations
+            // In the end, background color made this practically useless
+            svg.selectAll(".bar")
+                .data(stackedData)
+                .enter().append("g")
+                .attr("fill", d => highCarbon.includes(d.key) ? `url(#pattern-${d.key})` : colors[d.key])
+                .selectAll("rect")
+                .data(d => d)
+                .enter().append("rect")
+                .attr("y", d => y(d.data.Country))
+                .attr("height", y.bandwidth())
+                .attr("x", 0)
+                .attr("width", 0)
+                .transition()
+                .duration(1000)
+                .attr("x", d => x(d[0] / d.data.Total * 100))
+                .attr("width", d => x(d[1] / d.data.Total * 100) - x(d[0] / d.data.Total * 100))
+                .attr("opacity", 1);
+
+            svg.selectAll(".bar")
+                .data(stackedData)
+                .enter().append("g")
+                .attr("fill", "none")
+                .attr("stroke", d => d3.color(colors[d.key]).darker())
+                .selectAll("rect")
+                .data(d => d)
+                .enter().append("rect")
+                .attr("y", d => y(d.data.Country))
+                .attr("height", y.bandwidth())
+                .attr("x", d => x(d[0] / d.data.Total * 100))
+                .attr("width", d => x(d[1] / d.data.Total * 100) - x(d[0] / d.data.Total * 100))
+                .transition()
+                .duration(3000)
+                .attr("opacity", 1);
+            
+            // Instead of y ticks, labels are used
+            svg.selectAll(".country-label")
+                .data(data)
+                .enter().append("text")
+                .attr("class", "country-label")
+                .attr("x", -10)
+                .attr("y", d => y(d.Country) + y.bandwidth() / 2)
+                .attr("dy", ".35em")
+                .attr("text-anchor", "end")
+                .attr("fill", "aliceblue")
+                .text(d => d.Country)
+                .transition()
+                .duration(700)
+                .attr("opacity", 1);
+
+            svg.append("g")
+                .attr("transform", `translate(0,${height})`)
+                .call(d3.axisBottom(x).ticks(4).tickFormat(d => d + "%"))
+                .selectAll("text")
+                .style("fill", "aliceblue")
+                .style("font-size", "14px");
+
+            svg.selectAll(".domain, .tick line")
+                .style("stroke", "#202020");
+
+            svg.selectAll("rect")
+                .on("mouseover", function(event, d) {
+                    const country = d.data.Country;
+                    const total = d.data.Total;
+
+                    let highCarbonSum = 0;
+                    let lowCarbonSum = 0;
+                    // Calc percentages for each carbon intensity
+                    Object.keys(colors).forEach(key => {
+                        const value = d.data[key];
+                        const percentage = (value / total * 100).toFixed(1);
+                        if (highCarbon.includes(key)) {
+                            highCarbonSum += parseFloat(percentage);
+                        } else if (lowCarbon.includes(key)) {
+                            lowCarbonSum += parseFloat(percentage);
+                        }
+                    });
+                    // Use those values to set box-shadow and display them in tooltip
+                    const colorScale = d3.scaleSequential(d3.interpolateRdYlGn).domain([100, 45]);
+                    const boxShadowColor = colorScale(highCarbonSum);
+                    tooltip.style("box-shadow", `0 2px 3px 3px ${boxShadowColor}`);
+
+                    let highCarbonContent = `<div class='tooltip-group'><b>High-Carbon</b> <em>${highCarbonSum.toFixed(1)}%</em>`;
+                    let lowCarbonContent = `<div class='tooltip-group'><b>Low-Carbon</b> <em>${lowCarbonSum.toFixed(1)}%</em>`;
+
+                    Object.keys(colors).forEach(key => {
+                        const value = d.data[key];
+                        const percentage = (value / total * 100).toFixed(1);
+                        const color = colors[key].replace(/0\.7\)$/, '1)');
+                        if (highCarbon.includes(key)) {
+                            highCarbonContent += `
+                                <div class="tooltip-row">
+                                    <b style="color: ${color}">${key}</b> <em>${percentage}%</em>
+                                </div>`;
+                        } else if (lowCarbon.includes(key)) {
+                            lowCarbonContent += `
+                                <div class="tooltip-row">
+                                    <b style="color: ${color}">${key}</b> <em>${percentage}%</em>
+                                </div>`;
+                        }
+                    });
+
+                    highCarbonContent += '</div>';
+                    lowCarbonContent += '</div>';
+                    // There is the exception of EU 27, which is not an EU country
+                    const isEUCountry = euData.some(item => item.Country === country);
+                    const worldData = globalData.find(item => item.Country === 'World');
+                    
+                    let referenceData;
+                    let shareLabel;
+
+                    if (country === 'EU 27' || !isEUCountry) {
+                        referenceData = worldData;
+                        shareLabel = 'Global';
+                    } else {
+                        referenceData = euData.find(item => item.Country === 'EU 27');
+                        shareLabel = 'EU 27';
+                    }
+                    
+                    const sharePercentage = ((total / referenceData.Total) * 100).toFixed(1);
+                    const shareContent = `<div class='tooltip-group'><b>${shareLabel} consumption</b> <em>${sharePercentage}%</em></div>`;
+                    const content = `
+                        <div class="tooltip-header">
+                            ${country}
+                        </div>
+                        <div class="tooltip-content">
+                            ${highCarbonContent}
+                            ${lowCarbonContent}
+                            ${shareContent}
+                        </div>
+                    `;
+
+                    const tooltipHeight = tooltip.node().getBoundingClientRect().height;
+                    const tooltipY = event.pageY - tooltipHeight + 8 < 0 ? event.pageY + 3 : event.pageY - tooltipHeight - 3;
+
+                    tooltip.html(content)
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", tooltipY + "px")
+                        .style("opacity", 1);
+                })
+                .on("mouseout", function() {
+                    tooltip.style("opacity", 0);
+                });
+        }
+
+        function updateChart(dataType) {
+            let data;
+            
+            if (dataType === 'world') {
+                data = globalData.slice(1, 6); // 0 is World
+            } else {
+                data = euData.slice(1); // 1 is EU 27
+            }
+            
+            // sort by Consumption (Total) and set the reference
+            data.sort((a, b) => b.Total - a.Total);
+            const referenceTotal = dataType === 'world' 
+                ? globalData.find(d => d.Country === 'World').Total 
+                : euData.find(d => d.Country === 'EU 27').Total;
+            
+            createChart(data, referenceTotal);
+        }
+
+        d3.select("#worldButton").on("click", () => updateChart('world'));
+        d3.select("#euButton").on("click", () => updateChart('eu'));
+
+        updateChart('world');
+
+        const legendContainer = d3.select("body")
+            .append("div")
+            .attr("class", "legend")
+            .style("display", "flex")
+            .style("align-items", "center")
+            .style("gap", "10px");
+
+        Object.keys(colors).forEach((key) => {
+            const legendItem = legendContainer.append("div")
+                .attr("class", "legend-item")
+                .style("display", "flex")
+                .style("align-items", "center")
+                .style("gap", "5px");
+
+            const isHighCarbon = highCarbon.includes(key);
+
+            legendItem.append("svg")
+                .attr("width", 20)
+                .attr("height", 20)
+                .append("rect")
+                .attr("width", 20)
+                .attr("height", 20)
+                .attr("fill", isHighCarbon ? `url(#pattern-${key})` : colors[key])
+                .attr("stroke", d3.color(colors[key]).darker(1));
+
+            legendItem.append("span")
+                .attr("class", "legend-text")
+                .style("font-size", "14px")
+                .style("color", "aliceblue")
+                .text(key);
+        });
+
+    </script>
+</body>
+</html>

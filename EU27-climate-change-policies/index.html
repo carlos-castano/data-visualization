@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EU 27</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="global-container">
+        <h1 style="text-align: center; padding-bottom: 20px;">Common EU 27 Climate Change Policies Under Scrutiny</h1>
+         <div class="intro-text-container">
+                <p><i>EU citizens pay hundreds of billions of euros every year in environmental emissions taxes. Do the numbers really make sense?</i></p>
+         </div>
+        <div class="intro-section">
+            <div class="intro-text-container">
+                <div style="border: 2px; border-style: solid; border-color: #f0f0f0; border-radius: 10px; padding: 1rem; background-color: #2d2d2d; margin-top: 1rem;">
+                    <p class="p" style="font-size: 23px;"><b>Considerations</b></p>
+                    <p class="p" style="font-size: 20px;">- Since 2023, the EU-27 target for 2030 involves a 29.4% cut in emissions, and the target for 2050 ranges from 68.62% to ∞%.</p>
+                    <p class="p" style="font-size: 20px;">- As greenhouse gases vary in their origins and effects, they are all measured in tons of CO₂ equivalents.</p>
+                    <p class="p" style="font-size: 20px;">- Throughout this visualization, the term «Energy» is used as energy available from a raw source. Including the end product such as heat or electricity but also its transformation and transport.</p>
+                    <p class="p" style="font-size: 20px;">- No data is available for Malta.</p>
+                </div>
+            </div>
+            <iframe src="graph/intro.html" class="intro-graphic"></iframe>
+        </div>
+        <div class="graph-pack">
+            <h2 class="title">EU 27: Cleanest of Top Energy Consumers, with Internal Differences 2023</h2>
+            <div class="graph-container" style="padding-top: 0rem; margin-top: 3rem;">
+                <iframe src="graph/graph1.html" frameborder="0"></iframe>
+            </div>
+        </div>
+        <div class="graph-pack">
+            <h2 class="title">Huge Environmental Tax Imbalances</h2>
+            <div class="description">
+                ▪ Low-Carbon Mix is the percentage of energy from renewable sources plus nuclear.<br>
+                ▪ Emissions-tax balance is the difference between the EU 27 emissions that each country represents and the taxes it contributes. Negative values imply that they are overpaying for the amount they emit.<br>
+                
+             </div>
+            <div class="graph-container">
+                <iframe src="graph/graph2.html" frameborder="0" style="margin-bottom: 2rem;"></iframe>
+            </div>
+        </div>
+        <div class="expand-arrow">
+            <svg class="arrow-svg" viewBox="0 0 24 24">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+        </div>
+        <div class="soruce-container">
+            <p style="font-size: x-large;"><b>Sources:</b></p>
+            <p>1. <span class="chart-name">Pie chart</span>: <span class="citation">European Commission, Eurostat, Greenhouse gas emissions by source sector, Publication Office of the European Union, 18/04/2024 <a href="https://ec.europa.eu/eurostat/databrowser/product/view/env_air_gge" target="_blank">[link]</a></span></p>
+            <p>2. <span class="chart-name">Bar chart</span>: <span class="citation"><i>Energy Institute - Statistical Review of World Energy (2024) — with major processing by Our World in Data. Primary energy consumption by source, 2023</i>. <a href="https://ourworldindata.org/grapher/primary-energy-source-bar" target="_blank">[link]</a></span></p>
+            <p>3. <span class="chart-name">Bubble chart</span></p>
+            <p class="sub-item"><span class="citation">▪ <u>Environmental taxes</u>: European Commission, Eurostat, Environmental taxes by economic activity (NACE Rev. 2), Publication Office of the European Union, 15/07/2024 <a href="https://ec.europa.eu/eurostat/databrowser/view/env_ac_taxind2/default/table" target="_blank">[link]</a></span></p>
+            <p class="sub-item"><span class="citation">▪ <u>EU 27 GDP</u>: European Commission, Eurostat, GDP and main aggregates- international data cooperation annual data, Publication Office of the European Union, 17/01/2025 <a href="https://ec.europa.eu/eurostat/databrowser/view/naida_10_gdp__custom_14892109/default/table" target="_blank">[link]</a></span></p>
+            <p class="sub-item"><span class="citation">▪ <u>Energy mix</u>: <i>Energy Institute - Statistical Review of World Energy (2024) — with major processing by Our World in Data. Primary energy consumption by source, 2023</i> <a href="https://ourworldindata.org/grapher/primary-energy-source-bar" target="_blank">[link]</a></span></p>
+            <p class="sub-item"><span class="citation">▪ <u>Greenhouse gas emissions</u>: <i>ones et al. (2024) – with major processing by Our World in Data. Annual greenhouse gas emissions including land use. Jones et al., National contributions to climate change 2024.2.</i> <a href="https://ourworldindata.org/co2-and-greenhouse-gas-emissions" target="_blank">[link]</a></span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
