@@ -8,14 +8,7 @@ It is built following data visualization best practices, where the primary goal 
 
 ## Preview
 
-![Project Screenshot](https://github.com/carlos-castano/data-visualization/blob/main/eu27-climate-change-policies/bubble-chart.png)
-
-## Considerations
-
-> - Since 2023, the EU-27 target for 2030 involves a 29.4% cut in emissions, and the target for 2050 ranges from 68.62% to ∞%.
-> - As greenhouse gases vary in their origins and effects, they are all measured in tons of CO₂ equivalents.
-> - Throughout this visualization, the term «Energy» is used as energy available from a raw source. Including the end product such as heat or electricity but also its transformation and transport.
-> - No data is available for Malta.
+![Project Screenshot](https://github.com/carlos-castano/data-visualization/blob/main/EU27-climate-change-policies/bubble-chart-preview.png)
 
 ## ✨ Features & Design Philosophy
 
@@ -37,6 +30,8 @@ This project's design is guided by a narrative-driven approach, unfolding across
     *   **Objective:** To reveal whether a country is overpaying or underpaying in environmental taxes relative to its share of EU emissions.
     *   **Animation:** A time-slider control allows the user to observe how these balances have evolved over the years.
     *   **Bubble Size:** The size of each bubble represents a country's voting power in the EU Parliament, offering a layer of political context to the economic data.
+
+> While individual member states have authority over their fiscal policies, the EU sets the direction, objectives, and laws for environmental policy, which often require unanimous agreement. This chart makes it possible to identify political blocs that may push for policy changes. It is crucial to note that **revenues from these taxes are used for the public spending of the member states themselves**. The purpose of this visualization is not to critique the EU's influence, but rather to inform citizens about their country's policies, enabling them to assess whether the current approach is beneficial to their national interests (e.g., favoring industry, household expenditure, etc.). For more information, you can visit [European Parliament Briefing](https://www.europarl.europa.eu/RegData/etudes/BRIE/2020/646124/EPRS_BRI(2020)646124_EN.pdf).
 
 ## 📊 Data Sources
 
