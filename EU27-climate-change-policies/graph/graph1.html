@@ -78,9 +78,19 @@
             color: aliceblue;
         }
 
+        button.active {
+            background-color: #2af4f455;
+            border: 1px solid #2af4f4;
+            box-shadow: inset 0 0 0 1px rgba(42, 244, 244, 0.4);
+        }
+
         button:hover {
             background-color: #2af4f4a8;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        button.active:hover {
+            background-color: #2af4f455;
         }
 
         .consumption {
@@ -172,10 +182,7 @@
             </div>
 
             <div class="chart-wrapper">
-                <!-- El contenedor del gráfico D3 -->
                 <div id="chart-container"></div>
-        
-                <!-- Estos elementos están posicionados RELATIVO al chart-wrapper -->
                 <div class="consumption">🢁 +Consumption</div>
                 <div class="button-container">
                     <button id="worldButton">World</button>
@@ -428,10 +435,26 @@
                 .style("opacity", 1);
         }
 
-        d3.select("#worldButton").on("click", () => updateChart('world'));
-        d3.select("#euButton").on("click", () => updateChart('eu'));
+        function setActiveButton(activeId) {
+            d3.selectAll(".button-container button")
+                .classed("active", false);
+
+            d3.select(activeId)
+                .classed("active", true);
+        }
+
+        d3.select("#worldButton").on("click", () => {
+            updateChart('world');
+            setActiveButton("#worldButton");
+        });
+
+        d3.select("#euButton").on("click", () => {
+            updateChart('eu');
+            setActiveButton("#euButton");
+        });
         
         updateChart('world');
+        setActiveButton("#worldButton");
     </script>
 </body>
 </html>
